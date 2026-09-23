@@ -57,25 +57,25 @@ npm run dev          # sobe em http://localhost:3333
 | Método | Rota | Descrição |
 |---|---|---|
 | GET | `/health` | Verifica se a API está no ar |
-| GET | `/produtos?categoria=` | Lista os produtos em JSON (filtro opcional) |
-| GET | `/produtos/export?categoria=` | Baixa os produtos em CSV (mesmo filtro da listagem) |
+| GET | `/products?category=` | Lista os produtos em JSON (filtro opcional) |
+| GET | `/products/export?category=` | Baixa os produtos em CSV (mesmo filtro da listagem) |
 
-A listagem e a exportação usam a mesma função de busca (`buscarProdutos`), então o CSV sempre traz o que está filtrado na tela.
+A listagem e a exportação usam a mesma função de busca (`searchProducts`), então o CSV sempre traz o que está filtrado na tela.
 
 ## Como a exportação funciona
 
-A rota `/produtos/export` monta o CSV como texto e responde com dois headers:
+A rota `/products/export` monta o CSV como texto e responde com dois headers:
 
 | Header | Função |
 |---|---|
 | `Content-Type: text/csv; charset=utf-8` | Informa que o conteúdo é CSV em UTF-8 |
-| `Content-Disposition: attachment; filename="produtos-AAAA-MM-DD.csv"` | Faz o navegador baixar o arquivo, com esse nome, em vez de exibir o texto |
+| `Content-Disposition: attachment; filename="products-AAAA-MM-DD.csv"` | Faz o navegador baixar o arquivo, com esse nome, em vez de exibir o texto |
 
 O CORS libera a origem do front (`http://localhost:5173`) e expõe o header `Content-Disposition`. Sem o `exposedHeaders`, o JavaScript do front não consegue ler o nome do arquivo.
 
 ## Decisões sobre o CSV
 
-A geração fica isolada em `src/utils/csv.ts`: a rota entrega cabeçalho + linhas, e o `gerarCsv` cuida do resto.
+A geração fica isolada em `src/utils/csv.ts`: a rota entrega cabeçalho + linhas, e o `generateCsv` cuida do resto.
 
 | Decisão | Motivo |
 |---|---|
