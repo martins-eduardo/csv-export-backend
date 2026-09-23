@@ -2,7 +2,7 @@ import type { FastifyInstance } from  'fastify'
 import { db } from '../db/index'
 import { products } from '../db/schema'
 import { asc, eq } from 'drizzle-orm'
-import { gerarCsv } from '../utils/csv'
+import { generateCsv } from '../utils/csv'
 
 const formatPrice = new Intl.NumberFormat('pt-BR', {
   minimumFractionDigits: 2,
@@ -44,7 +44,7 @@ export async function productsRoutes(app: FastifyInstance) {
             formatDateHour.format(p.createdAt),
         ])
 
-        const csv = gerarCsv(header, rows)
+        const csv = generateCsv(header, rows)
 
         const today = new Date().toISOString().slice(0, 10)
         const fileName = `products-${today}.csv`

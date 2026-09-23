@@ -24,7 +24,7 @@ function escapeValue(value: Value): string {
   return text
 }
 
-export function gerarCsv(header: string[], rows: Value[][]): string {
+export function generateCsv(header: string[], rows: Value[][]): string {
   const registers = [header, ...rows].map((linha) =>
     linha.map(escapeValue).join(SEPARATOR),
   )
